@@ -26,5 +26,4 @@ public class Instantiation implements CommandLineRunner {
 		
 		pacienteRepository.saveAll(Arrays.asList(maria, alex, bob));
 	}
-
 }

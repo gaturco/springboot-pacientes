@@ -1,6 +1,7 @@
 package com.gaturco.pacientes.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gaturco.pacientes.domain.Paciente;
+import com.gaturco.pacientes.dto.PacienteDTO;
 import com.gaturco.pacientes.services.PacienteService;
 
 @RestController
@@ -19,8 +21,9 @@ public class PacienteResource {
 	private PacienteService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Paciente>> findAll() {
+	public ResponseEntity<List<PacienteDTO>> findAll() {
 		List<Paciente> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<PacienteDTO> listDTO = list.stream().map(paciente -> new PacienteDTO(paciente)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 }
