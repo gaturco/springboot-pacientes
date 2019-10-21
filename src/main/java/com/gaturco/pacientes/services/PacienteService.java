@@ -30,6 +30,11 @@ public class PacienteService {
 		return repo.insert(paciente);
 	}
 	
+	public void delete(String id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+	
 	public Paciente fromDTO(PacienteDTO pacienteDTO) {
 		return new Paciente(
 			pacienteDTO.getId(),
