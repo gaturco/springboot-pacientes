@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,14 @@ public class PacienteResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping(value="/{id}")
+	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody PacienteDTO pacienteDTO) {
+		Paciente paciente = service.fromDTO(pacienteDTO);
+		paciente.setId(id);
+		paciente = service.update(paciente);
 		return ResponseEntity.noContent().build();
 	}
 }	

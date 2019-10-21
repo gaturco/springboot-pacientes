@@ -35,6 +35,17 @@ public class PacienteService {
 		repo.deleteById(id);
 	}
 	
+	public Paciente update(Paciente paciente) {
+		Paciente newPaciente = findById(paciente.getId());
+		updateData(newPaciente, paciente);
+		return repo.save(newPaciente);
+	}
+	
+	private void updateData(Paciente newPaciente, Paciente paciente) {
+		newPaciente.setName(paciente.getName());
+		newPaciente.setEmail(paciente.getEmail());
+	}
+
 	public Paciente fromDTO(PacienteDTO pacienteDTO) {
 		return new Paciente(
 			pacienteDTO.getId(),
